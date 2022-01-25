@@ -12,7 +12,7 @@ import BasicLayout from 'layouts/authentication/components/BasicLayout'
 import Socials from 'layouts/authentication/components/Socials'
 import Separator from 'layouts/authentication/components/Separator'
 // Images
-import curved6 from 'assets/images/curved-images/curved14.jpg'
+import curved6 from 'assets/images/curved-images/bg2.jpg'
 import api from '../../../services/api'
 import axios from 'axios'
 function SignUp() {
@@ -24,8 +24,7 @@ function SignUp() {
     password: '',
     cnic: '',
   }
-  // const [buyer, setBuyer] = useState(false)
-  // const [saller, setSaller] = useState(false)
+
   const [user, setUser] = useState(initialState)
   const [email, setEmail] = useState('')
 
@@ -40,12 +39,7 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setEmail('')
-    // let userType = ''
-    // if (buyer) userType = 'Buyer'
-    // else if (saller) userType = 'Saller'
-    // else alert('Please select userType')
     const { cnic, name, email, password } = user
-    // debugger
     try {
       const res = await api.post('/api/patient', {
         email: email,
@@ -54,34 +48,13 @@ function SignUp() {
         name: name,
       })
       if (res.status === 200) {
-        // localStorage.setItem('code', JSON.stringify(res?.data))
-        // history.push('')
-        window.location = '/authentication/sign-in'
+        window.location = '/logout'
       }
     } catch (error) {
       if (error?.response?.data?.message === 'Email Already Taken.') {
         setEmail('Email Already Taken')
       }
     }
-
-    // .then(function (response) {
-    // localStorage.setItem("userRegister", JSON.stringify(response?.data));
-
-    // history.push("/emailVerification");
-    // toast("Verification Email has been sent successfully", {
-    // 	position: "top-left",
-    // 	autoClose: 5000,
-    // 	hideProgressBar: false,
-    // 	closeOnClick: true,
-    // 	pauseOnHover: true,
-    // 	draggable: true,
-    // 	progress: undefined,
-    // });
-    // history.push({
-    // 	pathname: "/user/verification/",
-    // 	search: `?code=${response?.data?.SavedUser?.code}`,
-    // 	state: { detail: response?.data?.SavedUser?.code },
-    // });
   }
   return (
     <BasicLayout
@@ -188,7 +161,7 @@ function SignUp() {
                 Already have an account?&nbsp;
                 <SuiTypography
                   component={Link}
-                  to='/authentication/sign-in'
+                  to='/logout'
                   variant='button'
                   color='dark'
                   fontWeight='bold'

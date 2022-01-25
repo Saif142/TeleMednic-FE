@@ -10,7 +10,7 @@ import Checkbox from '@mui/material/Checkbox'
 // Authentication layout components
 import CoverLayout from 'layouts/authentication/components/CoverLayout'
 // Images
-import curved9 from 'assets/images/curved-images/curved-6.jpg'
+import curved9 from 'assets/images/curved-images/bg.jpg'
 import api from '../../../services/api'
 import { useHistory } from 'react-router-dom'
 function SignIn() {
@@ -52,7 +52,6 @@ function SignIn() {
     else if (isDoctor) userType = 'doctor'
     else alert('Please select userType')
     const { email, password } = user
-    debugger
     try {
       const res = await api.post('/api/auth', {
         email: email,
@@ -60,10 +59,10 @@ function SignIn() {
         type: userType,
       })
       if (res.status === 200) {
-        debugger
         localStorage.setItem('token', JSON.stringify(res.data.token))
-
         localStorage.setItem('type', JSON.stringify(res.data.type))
+        localStorage.setItem('userData', JSON.stringify(res.data.userData))
+
         // localStorage.setItem('userData', JSON.stringify(res.data.payload))
         // history.push("/dashboard");
         // window.location.reload();
@@ -186,11 +185,14 @@ function SignIn() {
             Don&apos;t have an account?{' '}
             <SuiTypography
               component={Link}
-              to='/authentication/sign-up'
+              // to='/authentication/sign-up'
               variant='button'
               color='info'
               fontWeight='medium'
               textGradient
+              onClick={() => {
+                window.location = '/signup'
+              }}
             >
               Sign up
             </SuiTypography>

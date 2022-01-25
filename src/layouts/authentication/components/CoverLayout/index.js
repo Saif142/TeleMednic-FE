@@ -14,38 +14,46 @@ Coded by www.creative-tim.com
 */
 
 // prop-types is a library for typechecking of props
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 
 // @mui material components
-import Grid from "@mui/material/Grid";
+import Grid from '@mui/material/Grid'
 
 // Soft UI Dashboard PRO React components
-import SuiBox from "components/SuiBox";
-import SuiTypography from "components/SuiTypography";
+import SuiBox from 'components/SuiBox'
+import SuiTypography from 'components/SuiTypography'
 
 // Soft UI Dashboard PRO React example components
-import DefaultNavbar from "examples/Navbars/DefaultNavbar";
-import PageLayout from "examples/LayoutContainers/PageLayout";
+import DefaultNavbar from 'examples/Navbars/DefaultNavbar'
+import PageLayout from 'examples/LayoutContainers/PageLayout'
 
 // Authentication layout components
-import Footer from "layouts/authentication/components/Footer";
+import Footer from 'layouts/authentication/components/Footer'
 
-function CoverLayout({ color, header, title, description, image, top, children }) {
+function CoverLayout({
+  color,
+  header,
+  title,
+  description,
+  image,
+  top,
+  children,
+}) {
   return (
-    <PageLayout background="white">
-      <DefaultNavbar
+    <PageLayout background='white'>
+      {/* <DefaultNavbar
         action={{
           type: "external",
           route: "https://creative-tim.com/product/soft-ui-dashboard-react",
           label: "free download",
           color: "dark",
         }}
-      />
+      /> */}
       <Grid
         container
-        justifyContent="center"
+        justifyContent='center'
         sx={{
-          minHeight: "75vh",
+          minHeight: '75vh',
           margin: 0,
         }}
       >
@@ -55,11 +63,20 @@ function CoverLayout({ color, header, title, description, image, top, children }
               {!header ? (
                 <>
                   <SuiBox mb={1}>
-                    <SuiTypography variant="h3" fontWeight="bold" color={color} textGradient>
+                    <SuiTypography
+                      variant='h3'
+                      fontWeight='bold'
+                      color={color}
+                      textGradient
+                    >
                       {title}
                     </SuiTypography>
                   </SuiBox>
-                  <SuiTypography variant="body2" fontWeight="regular" color="text">
+                  <SuiTypography
+                    variant='body2'
+                    fontWeight='regular'
+                    color='text'
+                  >
                     {description}
                   </SuiTypography>
                 </>
@@ -72,24 +89,25 @@ function CoverLayout({ color, header, title, description, image, top, children }
         </Grid>
         <Grid item xs={12} md={5}>
           <SuiBox
-            height="100%"
-            display={{ xs: "none", md: "block" }}
-            position="relative"
-            right={{ md: "-12rem", xl: "-16rem" }}
+            height='100%'
+            display={{ xs: 'none', md: 'block' }}
+            position='relative'
+            right={{ md: '-12rem', xl: '-16rem' }}
             mr={-16}
             sx={{
-              transform: "skewX(-10deg)",
-              overflow: "hidden",
-              borderBottomLeftRadius: ({ borders: { borderRadius } }) => borderRadius.lg,
+              transform: 'skewX(-10deg)',
+              overflow: 'hidden',
+              borderBottomLeftRadius: ({ borders: { borderRadius } }) =>
+                borderRadius.lg,
             }}
           >
             <SuiBox
               ml={-8}
-              height="100%"
+              height='100%'
               sx={{
                 backgroundImage: `url(${image})`,
-                backgroundSize: "cover",
-                transform: "skewX(10deg)",
+                backgroundSize: 'cover',
+                transform: 'skewX(10deg)',
               }}
             />
           </SuiBox>
@@ -97,29 +115,29 @@ function CoverLayout({ color, header, title, description, image, top, children }
       </Grid>
       <Footer />
     </PageLayout>
-  );
+  )
 }
 
 // Setting default values for the props of CoverLayout
 CoverLayout.defaultProps = {
-  header: "",
-  title: "",
-  description: "",
-  color: "info",
+  header: '',
+  title: '',
+  description: '',
+  color: 'info',
   top: 20,
-};
+}
 
 // Typechecking props for the CoverLayout
 CoverLayout.propTypes = {
   color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "info",
-    "success",
-    "warning",
-    "error",
-    "dark",
-    "light",
+    'primary',
+    'secondary',
+    'info',
+    'success',
+    'warning',
+    'error',
+    'dark',
+    'light',
   ]),
   header: PropTypes.node,
   title: PropTypes.string,
@@ -127,6 +145,6 @@ CoverLayout.propTypes = {
   image: PropTypes.string.isRequired,
   top: PropTypes.number,
   children: PropTypes.node.isRequired,
-};
+}
 
-export default CoverLayout;
+export default CoverLayout
