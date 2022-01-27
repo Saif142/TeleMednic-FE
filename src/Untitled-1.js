@@ -116,9 +116,7 @@ function Overview() {
                       Appointment Slot:
                     </label>
                     <label htmlFor='phone' className='m-2'>
-                      {data1?.meetings[0]?.time
-                        ? data1.meetings[0].time
-                        : 'Not Yet'}
+                      {data1.meetings[0].time}
                     </label>
 
                     <br />
@@ -126,7 +124,7 @@ function Overview() {
                       Appointment Day:
                     </label>
                     <label htmlFor='phone' className='m-2'>
-                      {/* {moment(data1.meetings[0].date).format('MM/DD/YYYY')} */}
+                      {moment(data1.meetings[0].date).format('MM/DD/YYYY')}
                     </label>
                     <span className=''></span>
                     <input

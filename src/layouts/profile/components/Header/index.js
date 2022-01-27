@@ -109,7 +109,6 @@ function Header() {
                 {data1.name}
               </SuiTypography>
               <SuiTypography variant='button' color='text' fontWeight='medium'>
-                {/* CEO / Co-Founder */}
                 {type.toUpperCase()}
               </SuiTypography>
             </SuiBox>
