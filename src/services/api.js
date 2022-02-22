@@ -1,17 +1,17 @@
-import axios from 'axios'
-import { getToken } from './auth'
+import axios from "axios";
+import { getToken } from "./auth";
 
 const api = axios.create({
-  baseURL: '',
-})
+  baseURL: "",
+});
 
 api.interceptors.request.use(async (config) => {
-  const token = getToken()
+  const token = getToken();
 
   if (token) {
-    config.headers.Authorization = token ? `Bearer ${token}` : ''
+    config.headers.Authorization = token ? `Bearer ${token}` : "";
   }
-  return config
-})
+  return config;
+});
 
-export default api
+export default api;

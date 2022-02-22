@@ -6,6 +6,7 @@
   "license": "See license in https://www.creative-tim.com/license",
   "description": "Material UI version of Soft UI Dashboard by Creative Tim",
   "homepage": "https://demos.creative-tim.com/soft-ui-dashboard-react/#/dashboard",
+  "proxy": "https://tele-mednic.herokuapp.com",
   "bugs": {
     "url": "https://github.com/creativetimofficial/soft-ui-dashboard-react/issues"
   },
@@ -66,6 +67,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "proxy": "http://localhost:5000"
+  }
 }

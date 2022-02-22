@@ -48,7 +48,7 @@ function SignUp() {
         name: name,
       })
       if (res.status === 200) {
-        window.location = '/logout'
+        window.location = '/signin'
       }
     } catch (error) {
       if (error?.response?.data?.message === 'Email Already Taken.') {

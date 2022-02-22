@@ -5,10 +5,11 @@ import Billing from 'layouts/billing'
 // import VirtualReality from "layouts/virtual-reality";
 // import RTL from "layouts/rtl";
 import Profile from 'layouts/profile'
+import DoctorProfile from 'layouts/DoctorProfile'
 import UserProfile from 'layouts/userprofile'
 import AddProperty from 'layouts/addproperty'
-import AllProperties from 'layouts/allproperties'
-import AllUsers from 'layouts/allusers'
+import AllDoctors from 'layouts/allDoctors'
+import AllHospitals from './layouts/allHospitals'
 
 import SignIn from 'layouts/authentication/sign-in'
 import SignUp from 'layouts/authentication/sign-up'
@@ -27,33 +28,33 @@ import Home from 'layouts/site/home'
 import Home2 from 'layouts/site/components/Socials'
 
 const routes = [
-  {
-    type: 'collapse',
-    name: 'Dashboard',
-    key: 'dashboard',
-    route: '/dashboard',
-    icon: <Shop size='12px' />,
-    component: Dashboard,
-    noCollapse: true,
-  },
-  {
-    type: 'collapse',
-    name: 'Tables',
-    key: 'tables',
-    route: '/tables',
-    icon: <Office size='12px' />,
-    component: Tables,
-    noCollapse: true,
-  },
-  {
-    type: 'collapse',
-    name: 'Billing',
-    key: 'billing',
-    route: '/billing',
-    icon: <CreditCard size='12px' />,
-    component: Billing,
-    noCollapse: true,
-  },
+  // {
+  //   type: 'collapse',
+  //   name: 'Dashboard',
+  //   key: 'dashboard',
+  //   route: '/dashboard',
+  //   icon: <Shop size='12px' />,
+  //   component: Dashboard,
+  //   noCollapse: true,
+  // },
+  // {
+  //   type: 'collapse',
+  //   name: 'Tables',
+  //   key: 'tables',
+  //   route: '/tables',
+  //   icon: <Office size='12px' />,
+  //   component: Tables,
+  //   noCollapse: true,
+  // },
+  // {
+  //   type: 'collapse',
+  //   name: 'Billing',
+  //   key: 'billing',
+  //   route: '/billing',
+  //   icon: <CreditCard size='12px' />,
+  //   component: Billing,
+  //   noCollapse: true,
+  // },
   // {
   //   type: "collapse",
   //   name: "Virtual Reality",
@@ -84,26 +85,35 @@ const routes = [
   },
   {
     type: 'collapse',
-    name: 'Property',
-    key: 'profile',
-    route: '/allproperties',
+    name: 'All Hospitals',
+    key: 'hospitals',
+    route: '/allhospitals',
     icon: <CustomerSupport size='12px' />,
-    component: AllProperties,
+    component: AllHospitals,
     noCollapse: true,
   },
   {
     type: 'collapse',
     name: 'All Doctors',
-    key: 'table',
+    key: 'AllDoctors',
     route: '/alldoctors',
     icon: <CustomerSupport size='12px' />,
-    component: AllUsers,
+    component: AllDoctors,
+    noCollapse: true,
+  },
+  {
+    type: 'collapse',
+    name: 'doctor',
+    key: 'doctor',
+    route: '/doctor/:name',
+    icon: <CustomerSupport size='12px' />,
+    component: DoctorProfile,
     noCollapse: true,
   },
   {
     type: 'collapse',
     name: 'User Profile',
-    key: 'profile',
+    key: 'userProfile',
     route: '/userprofile',
     icon: <CustomerSupport size='12px' />,
     component: UserProfile,
@@ -112,7 +122,7 @@ const routes = [
   {
     type: 'collapse',
     name: 'Add Property',
-    key: 'profile',
+    key: 'editProfile',
     route: '/editproperty',
     icon: <CustomerSupport size='12px' />,
     component: AddProperty,

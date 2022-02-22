@@ -30,7 +30,15 @@ import SuiTypography from "components/SuiTypography";
 import SuiButton from "components/SuiButton";
 import SuiAvatar from "components/SuiAvatar";
 
-function DefaultProjectCard({ image, label, title, description, action, authors }) {
+function DefaultProjectCard({
+  image,
+  label,
+  title,
+  description,
+  action,
+  state,
+  authors,
+}) {
   const renderAuthors = authors.map(({ image: media, name }) => (
     <Tooltip key={name} title={name} placement="bottom">
       <SuiAvatar
@@ -90,7 +98,7 @@ function DefaultProjectCard({ image, label, title, description, action, authors 
           {action.type === "internal" ? (
             <SuiTypography
               component={Link}
-              to={action.route}
+              to={{ pathname: action.route, state: action.state }}
               variant="h5"
               textTransform="capitalize"
             >
@@ -114,11 +122,15 @@ function DefaultProjectCard({ image, label, title, description, action, authors 
             {description}
           </SuiTypography>
         </SuiBox>
-        <SuiBox display="flex" justifyContent="space-between" alignItems="center">
+        <SuiBox
+          display="flex"
+          justifyContent="space-between"
+          alignItems="center"
+        >
           {action.type === "internal" ? (
             <SuiButton
               component={Link}
-              to={action.route}
+              to={{ pathname: action.route, state: action.state }}
               variant="outlined"
               size="small"
               color={action.color}
@@ -171,6 +183,7 @@ DefaultProjectCard.propTypes = {
       "white",
     ]).isRequired,
     label: PropTypes.string.isRequired,
+    state: PropTypes.object.isRequired,
   }).isRequired,
   authors: PropTypes.arrayOf(PropTypes.object),
 };

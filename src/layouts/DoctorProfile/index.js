@@ -161,7 +161,7 @@ function Overview(props) {
           <div className='row justify-content-center'>
             <img
               // src={userData?.avatar?.length > 0 ? userData?.avatar : userImage}
-              src={userProfile.avatar}
+              src={userData.avatar}
               alt=''
               style={{
                 objectFit: 'cover',
@@ -170,23 +170,6 @@ function Overview(props) {
                 width: 'auto',
               }}
             ></img>
-
-            <button
-              style={{
-                marginTop: '10px',
-                // objectFit: 'cover',
-                // height: '200px',
-                // borderRadius: '5%',
-                // width: '50%',
-                // borderColor: 'light-blue',
-                backgroundColor: '#ADD8E6',
-                borderRadius: '8px',
-                border: 'none',
-              }}
-              onClick={() => (window.location = '/userprofile')}
-            >
-              Edit Profile
-            </button>
           </div>
           <div className='row mt-5'>
             <div className='col-md-7'>
@@ -204,40 +187,43 @@ function Overview(props) {
                   </div>
                   <div className='col-md-auto'>{userData.email}</div>
                 </div>
-                {/* {patientType == 'patient' ? ( */}
-                <div>
-                  <div className='row '>
-                    <div className='col-md-4'>
-                      <h5>CNIC: </h5>
+
+                {patientType == 'patient' ? (
+                  <div>
+                    <div className='row '>
+                      <div className='col-md-4'>
+                        <h5>CNIC: </h5>
+                      </div>
+                      <div className='col-md-auto'>{userData.cnic}</div>
                     </div>
-                    <div className='col-md-auto'>{userData.cnic}</div>
-                  </div>
-                  <div className='row '>
-                    <div className='col-md-4'>
-                      <h5>Age: </h5>
+                    <div className='row '>
+                      <div className='col-md-4'>
+                        <h5>Age: </h5>
+                      </div>
+                      <div className='col-md-auto'>{userProfile.age}</div>
                     </div>
-                    <div className='col-md-auto'>{userProfile.age}</div>
-                  </div>
-                  <div className='row '>
-                    <div className='col-md-4'>
-                      <h5>Blood: </h5>
+                    <div className='row '>
+                      <div className='col-md-4'>
+                        <h5>Blood: </h5>
+                      </div>
+                      <div className='col-md-auto'>{userProfile.blood}</div>
                     </div>
-                    <div className='col-md-auto'>{userProfile.blood}</div>
-                  </div>
-                  <div className='row '>
-                    <div className='col-md-4'>
-                      <h5>Height: </h5>
+                    <div className='row '>
+                      <div className='col-md-4'>
+                        <h5>Height: </h5>
+                      </div>
+                      <div className='col-md-auto'>{userProfile.height} cm</div>
                     </div>
-                    <div className='col-md-auto'>{userProfile.height} cm</div>
-                  </div>
-                  <div className='row '>
-                    <div className='col-md-4'>
-                      <h5>Weight: </h5>
+                    <div className='row '>
+                      <div className='col-md-4'>
+                        <h5>Weight: </h5>
+                      </div>
+                      <div className='col-md-auto'>{userProfile.weight} kg</div>
                     </div>
-                    <div className='col-md-auto'>{userProfile.weight} kg</div>
                   </div>
-                </div>
-                {/* // ) : ( // '' // )} */}
+                ) : (
+                  ''
+                )}
               </div>
             </div>
             <div className='col-md-5'></div>
