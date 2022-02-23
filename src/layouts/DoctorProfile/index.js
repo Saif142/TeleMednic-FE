@@ -18,6 +18,7 @@ import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import React, { useEffect, useState } from 'react'
 import moment from 'moment'
+import axios from 'axios'
 // @mui icons
 import FacebookIcon from '@mui/icons-material/Facebook'
 import TwitterIcon from '@mui/icons-material/Twitter'
@@ -90,7 +91,19 @@ function Overview(props) {
   const cancelAppointment = () => {}
 
   const bookAppointment = async (slot) => {
-    debugger
+    console.log('userData._id', userData._id)
+    console.log(slot)
+    console.log('===============================')
+    console.log(JSON.parse(window.localStorage.getItem('token')))
+    console.log(typeof JSON.parse(window.localStorage.getItem('token')))
+    var data = ''
+    var raw = ''
+    // var requestOptions = {
+    //   method: 'POST',
+    //   headers: {
+    //     'x-auth-token': JSON.parse(window.localStorage.getItem('token')),
+    //   },
+    // }
     fetch(
       'https://tele-mednic.herokuapp.com/api/appointment/' +
         userData._id +
@@ -105,53 +118,6 @@ function Overview(props) {
         },
       }
     ).then((response) => response.json())
-
-    // const requestOptions = {
-    //   method: 'POST',
-    //   headers: {
-    //     'x-auth-token': JSON.parse(window.localStorage.getItem('token')),
-    //   },
-    // }
-    // fetch(
-    //   'https://tele-mednic.herokuapp.com/api/appointment/' +
-    //     userData._id +
-    //     '/' +
-    //     slot,
-    //   requestOptions
-    // ).then((response) => response.json())
-    // .then((data) => (element.innerHTML = data.id))
-
-    // try {
-    //   debugger
-    //   //        `/api/appointment/${userData._id}/${slot}`
-
-    //   // axios.post(
-    //   //   'https://tele-mednic.herokuapp.com/api/appointment/61f5a04d34aee7965c855ad2/61f5a6d0f5f3dd1cf99de288',
-
-    //   //   {
-    //   //     headers: {
-    //   //       'x-auth-token': JSON.parse(window.localStorage.getItem('token')),
-    //   //     },
-    //   //   }
-    //   // )
-
-    //   const res = await api.post(
-    //     '/api/appointment/' + userData._id + '/' + slot,
-
-    //     {
-    //       headers: {
-    //         'x-auth-token': JSON.parse(window.localStorage.getItem('token')),
-    //         'Content-Type': 'application/json',
-    //         Accept: 'application/json',
-    //       },
-    //     }
-    //   )
-    //   if (res.status === 200) {
-    //     debugger
-
-    //     alert('Successfully')
-    //   }
-    // } catch (error) {}
   }
   return (
     <DashboardLayout>
