@@ -49,71 +49,75 @@ import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
 import user from "assets/images/user.png";
-
+import { useLocation } from "react-router-dom";
 import api from "../../services/api";
 import { useState, useEffect } from "react";
 
 function Overview() {
-  const [allDoctors, setAllDoctors] = useState([]);
+	const location = useLocation();
+	const [allDoctors, setAllDoctors] = useState([]);
 
-  const allData = async () => {
-    try {
-      const res = await api.get("api/doctor");
-      if (res.status === 200) {
-        setAllDoctors(res.data);
-      }
-    } catch (error) {}
-  };
-  useEffect(() => {
-    allData();
-  }, []);
+	const allData = async () => {
+		try {
+			const res = await api.get(
+				`api/doctor/allDoctors/${location.state.detail}`
+			);
+			if (res.status === 200) {
+				setAllDoctors(res.data);
+			}
+		} catch (error) {}
+	};
+	useEffect(() => {
+		allData();
+	}, []);
 
-  return (
-    <DashboardLayout>
-      <Header />
+	// console.log("asas", location.state.detail);
+	return (
+		<DashboardLayout>
+			<Header />
 
-      <SuiBox mt={5} mb={3}>
-        <Card>
-          <SuiBox pt={2} px={2}>
-            <SuiBox mb={0.5}>
-              <SuiTypography variant="h6" fontWeight="medium">
-                Doctors list
-              </SuiTypography>
-            </SuiBox>
-            <SuiBox mb={1}>
-              {/* <SuiTypography variant="button" fontWeight="regular" color="text">
-                Architects design houses
-              </SuiTypography> */}
-            </SuiBox>
-          </SuiBox>
-          <SuiBox p={2}>
-            <Grid container spacing={3}>
-              {allDoctors.map((doctor) => {
-                return (
-                  <Grid item xs={12} md={6} xl={3}>
-                    <DefaultProjectCard
-                      image={doctor.avatar ? doctor.avatar : user}
-                      label={doctor.speciality}
-                      title={doctor.name}
-                      description=""
-                      action={{
-                        type: "internal",
-                        color: "info",
-                        label: "view Detail",
-                        route: `/doctor/${doctor.name.split(" ").join("-")}`,
-                        state: { doctor },
-                      }}
-                    />
-                  </Grid>
-                );
-              })}
-            </Grid>
-          </SuiBox>
-        </Card>
-      </SuiBox>
-      {/* <Footer /> */}
-    </DashboardLayout>
-  );
+			<SuiBox mt={5} mb={3}>
+				<Card>
+					<SuiBox pt={2} px={2}>
+						<SuiBox mb={0.5}>
+							<SuiTypography variant="h6" fontWeight="medium">
+								Doctors list
+							</SuiTypography>
+						</SuiBox>
+						<SuiBox mb={1}>
+							{/* <SuiTypography variant="button" fontWeight="regular" color="text">
+								Architects design houses
+							</SuiTypography> */}
+						</SuiBox>
+					</SuiBox>
+					<SuiBox p={2}>
+						<Grid container spacing={3}>
+							{allDoctors.allDoctors?.map((doctor) => {
+								return (
+									<Grid item xs={12} md={6} xl={3}>
+										<DefaultProjectCard
+											image={doctor.avatar ? doctor.avatar : user}
+											label={doctor.speciality}
+											title={doctor.name}
+											description=""
+											action={{
+												type: "internal",
+												color: "info",
+												label: "view Detail",
+												route: `/doctor/${doctor.name.split(" ").join("-")}`,
+												state: { doctor },
+											}}
+										/>
+									</Grid>
+								);
+							})}
+						</Grid>
+					</SuiBox>
+				</Card>
+			</SuiBox>
+			{/* <Footer /> */}
+		</DashboardLayout>
+	);
 }
 
 export default Overview;

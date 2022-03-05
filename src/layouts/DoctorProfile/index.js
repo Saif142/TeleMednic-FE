@@ -202,7 +202,7 @@ function Overview(props) {
                 <h3>Appointment</h3>
               )}
 
-              <table class='table table-striped table-dark text-white table-hover'>
+              <table class='table table-hover'>
                 <thead>
                   <tr>
                     <th colspan='2'>#</th>
