@@ -85,6 +85,8 @@ function Overview(props) {
 			});
 			if (res.status === 200) {
 				setUserProfile(res.data);
+				localStorage.setItem("isCreateProfile", userProfile.age);
+
 				// alert('Successfully')
 			}
 		} catch (error) {}
@@ -232,30 +234,39 @@ function Overview(props) {
 										</div>
 										<div className="col-md-auto">{userData.cnic}</div>
 									</div>
-									<div className="row ">
-										<div className="col-md-4">
-											<h5>Age: </h5>
+									{userProfile.age && (
+										<div className="row ">
+											<div className="col-md-4">
+												<h5>Age: </h5>
+											</div>
+											<div className="col-md-auto">{userProfile.age}</div>
 										</div>
-										<div className="col-md-auto">{userProfile.age}</div>
-									</div>
-									<div className="row ">
-										<div className="col-md-4">
-											<h5>Blood: </h5>
+									)}
+
+									{userProfile.blood && (
+										<div className="row ">
+											<div className="col-md-4">
+												<h5>Blood: </h5>
+											</div>
+											<div className="col-md-auto">{userProfile.blood}</div>
 										</div>
-										<div className="col-md-auto">{userProfile.blood}</div>
-									</div>
-									<div className="row ">
-										<div className="col-md-4">
-											<h5>Height: </h5>
+									)}
+									{userProfile.height && (
+										<div className="row ">
+											<div className="col-md-4">
+												<h5>Height: </h5>
+											</div>
+											<div className="col-md-auto">{userProfile.height} cm</div>
 										</div>
-										<div className="col-md-auto">{userProfile.height} cm</div>
-									</div>
-									<div className="row ">
-										<div className="col-md-4">
-											<h5>Weight: </h5>
+									)}
+									{userProfile.weight && (
+										<div className="row ">
+											<div className="col-md-4">
+												<h5>Weight: </h5>
+											</div>
+											<div className="col-md-auto">{userProfile.weight} kg</div>
 										</div>
-										<div className="col-md-auto">{userProfile.weight} kg</div>
-									</div>
+									)}
 								</div>
 							</div>
 						</div>

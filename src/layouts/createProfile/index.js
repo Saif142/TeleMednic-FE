@@ -30,8 +30,8 @@ function Overview() {
 		e.preventDefault();
 		const { weight, blood, height, age } = user;
 		try {
-			const res = await api.put(
-				`api/profile/updateProfile`,
+			const res = await api.post(
+				`api/profile`,
 				{
 					weight: weight,
 					blood: blood,
@@ -46,7 +46,7 @@ function Overview() {
 				}
 			);
 			if (res.status == 200) {
-				window.location = "/profile";
+				debugger;
 				// alert("Successfully updated the profile");
 				// toast("Your Profile has been updated", {
 				//   position: "top-right",
@@ -59,6 +59,7 @@ function Overview() {
 				// });
 			}
 		} catch (error) {
+			debugger;
 			alert(JSON.stringify(error?.response?.data));
 		}
 	};
@@ -72,7 +73,7 @@ function Overview() {
 						<div className="col-2">
 							<div className="row mb-3">
 								<span style={{ fontSize: "20px", fontWeight: "bold" }}>
-									Profile Detail
+									Create Profile
 								</span>
 							</div>
 							<div className="row">

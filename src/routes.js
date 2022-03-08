@@ -7,6 +7,8 @@ import Billing from "layouts/billing";
 import Profile from "layouts/profile";
 import DoctorProfile from "layouts/DoctorProfile";
 import UserProfile from "layouts/userprofile";
+import CreateProfile from "layouts/createProfile";
+
 import AddProperty from "layouts/addproperty";
 import AllDoctors from "layouts/allDoctors";
 import AllHospitals from "./layouts/allHospitals";
@@ -14,7 +16,7 @@ import AllHospitals from "./layouts/allHospitals";
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import Alldrs from "layouts/alldrs";
-import AppointmentHistory from 'layouts/appointmentHistory'
+import AppointmentHistory from "layouts/appointmentHistory";
 // Soft UI Dashboard React icons
 import Shop from "examples/Icons/Shop";
 import Office from "examples/Icons/Office";
@@ -121,12 +123,21 @@ const routes = [
 		noCollapse: true,
 	},
 	{
-		type: "collapse",
+		// type: "collapse",
 		name: "Update Profile",
 		key: "userProfile",
 		route: "/userprofile",
 		icon: <CustomerSupport size="12px" />,
 		component: UserProfile,
+		noCollapse: true,
+	},
+	{
+		type: localStorage.getItem("isCreateProfile") ? "" : "collapse",
+		name: "Create Profile",
+		key: "CreateProfile",
+		route: "/createprofile",
+		icon: <CustomerSupport size="12px" />,
+		component: CreateProfile,
 		noCollapse: true,
 	},
 	{
