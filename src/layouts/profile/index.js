@@ -63,9 +63,14 @@ function Overview(props) {
 
 	const [isPatient, setIsPatient] = useState(true);
 	const [patientMeeting, setPatientMeeting] = useState();
+	const [dr_Data, setDr_Data] = useState(
+		JSON.parse(window.localStorage.getItem("userData"))
+	);
+	// var Dr_Avatar = JSON.parse(window.localStorage.getItem("userData")).avatar;
 
 	const location = useLocation();
 	const patientType = localStorage.getItem("type");
+	const isDr = JSON.parse(window.localStorage.getItem("type")) == "doctor";
 	useEffect(() => {
 		if (location.pathname.split("/")[1] === "profile") {
 			setUserData(JSON.parse(window.localStorage.getItem("userData")));
@@ -77,38 +82,58 @@ function Overview(props) {
 	}, []);
 
 	useEffect(async () => {
-		try {
-			const res = await api.get(`/api/profile/me`, {
-				headers: {
-					"x-auth-token": JSON.parse(window.localStorage.getItem("token")),
-				},
-			});
-			if (res.status === 200) {
-				setUserProfile(res.data);
-				localStorage.setItem("isCreateProfile", userProfile.age);
-
-				// alert('Successfully')
-			}
-		} catch (error) {}
-	}, []);
-	// patient appointment
-	useEffect(async () => {
-		try {
-			const res = await api.get(
-				`/api/patient/meetings/${
-					JSON.parse(localStorage.getItem("userData"))._id
-				}`,
-				{
+		if (JSON.parse(window.localStorage.getItem("type")) == "patient") {
+			try {
+				const res = await api.get(`/api/profile/me`, {
 					headers: {
 						"x-auth-token": JSON.parse(window.localStorage.getItem("token")),
 					},
+				});
+				if (res.status === 200) {
+					setUserProfile(res.data);
+					localStorage.setItem("isCreateProfile", userProfile.age);
+
+					// alert('Successfully')
 				}
-			);
-			if (res.status === 200) {
-				setPatientMeeting(res.data);
-				// alert('Successfully')
-			}
-		} catch (error) {}
+			} catch (error) {}
+		}
+	}, []);
+	// patient appointment
+	useEffect(async () => {
+		if (JSON.parse(window.localStorage.getItem("type")) == "patient") {
+			try {
+				const res = await api.get(
+					`/api/patient/meetings/${
+						JSON.parse(localStorage.getItem("userData"))._id
+					}`,
+					{
+						headers: {
+							"x-auth-token": JSON.parse(window.localStorage.getItem("token")),
+						},
+					}
+				);
+				if (res.status === 200) {
+					setPatientMeeting(res.data);
+					// alert('Successfully')
+				}
+			} catch (error) {}
+		} else if (JSON.parse(window.localStorage.getItem("type")) == "doctor") {
+			try {
+				const res = await api.get(
+					`/api/doctor/meetings/${
+						JSON.parse(localStorage.getItem("userData"))._id
+					}`,
+					{
+						headers: {
+							"x-auth-token": JSON.parse(window.localStorage.getItem("token")),
+						},
+					}
+				);
+				if (res.status === 200) {
+					setPatientMeeting(res.data);
+				}
+			} catch (error) {}
+		}
 	}, []);
 	const cancelAppointment = () => {};
 
@@ -183,7 +208,11 @@ function Overview(props) {
 					<div className="row justify-content-center">
 						<img
 							// src={userData?.avatar?.length > 0 ? userData?.avatar : userImage}
-							src={userProfile.avatar}
+							src={
+								JSON.parse(window.localStorage.getItem("type")) == "patient"
+									? userProfile.avatar
+									: dr_Data.avatar
+							}
 							alt=""
 							style={{
 								objectFit: "cover",
@@ -193,22 +222,26 @@ function Overview(props) {
 							}}
 						></img>
 
-						<button
-							style={{
-								marginTop: "10px",
-								// objectFit: 'cover',
-								// height: '200px',
-								// borderRadius: '5%',
-								// width: '50%',
-								// borderColor: 'light-blue',
-								backgroundColor: "#ADD8E6",
-								borderRadius: "8px",
-								border: "none",
-							}}
-							onClick={() => (window.location = "/userprofile")}
-						>
-							Edit Profile
-						</button>
+						{isDr ? (
+							""
+						) : (
+							<button
+								style={{
+									marginTop: "10px",
+									// objectFit: 'cover',
+									// height: '200px',
+									// borderRadius: '5%',
+									// width: '50%',
+									// borderColor: 'light-blue',
+									backgroundColor: "#ADD8E6",
+									borderRadius: "8px",
+									border: "none",
+								}}
+								onClick={() => (window.location = "/userprofile")}
+							>
+								Edit Profile
+							</button>
+						)}
 					</div>
 					<div className="row mt-5">
 						<div className="col-md-7">
@@ -228,12 +261,22 @@ function Overview(props) {
 								</div>
 								{/* {patientType == 'patient' ? ( */}
 								<div>
-									<div className="row ">
-										<div className="col-md-4">
-											<h5>CNIC: </h5>
+									{!isDr && (
+										<div className="row ">
+											<div className="col-md-4">
+												<h5>CNIC: </h5>
+											</div>
+											<div className="col-md-auto">{userData.cnic}</div>
 										</div>
-										<div className="col-md-auto">{userData.cnic}</div>
-									</div>
+									)}
+									{isDr && (
+										<div className="row ">
+											<div className="col-md-4">
+												<h5>Speciality </h5>
+											</div>
+											<div className="col-md-auto">{dr_Data.speciality}</div>
+										</div>
+									)}
 									{userProfile.age && (
 										<div className="row ">
 											<div className="col-md-4">
@@ -287,7 +330,7 @@ function Overview(props) {
 
 										{location.pathname.split("/")[1] === "profile" ? (
 											<>
-												<th>Dr. Name</th>
+												<th>{isDr ? "Pt. Name" : "Dr. Name"}</th>
 												<th>Meeting Day</th>
 												<th>Meeting Time</th>
 												<th>Meeting Date</th>
@@ -339,10 +382,17 @@ function Overview(props) {
 															<div class="d-flex align-items-center">
 																<img
 																	class="rounded-circle"
-																	src={meeting.doctorAvatar}
+																	src={
+																		isDr
+																			? meeting.patientAvatar
+																			: meeting.doctorAvatar
+																	}
 																	width="50"
+																	height="50"
 																/>
-																<span class="ms-1">{meeting.doctor}</span>
+																<span class="ms-1">
+																	{isDr ? meeting.patient : meeting.doctor}
+																</span>
 															</div>
 														</td>
 														<td>

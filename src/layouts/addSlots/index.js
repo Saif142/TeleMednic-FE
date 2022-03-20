@@ -6,20 +6,18 @@ import SuiButton from "components/SuiButton";
 import api from "../../services/api";
 import "./style.css";
 import FileBase64 from "react-file-base64";
+import { borderColor } from "@mui/material/node_modules/@mui/system";
+import moment from "moment";
 
 function Overview() {
 	const initialState = {
-		blood: "",
-		height: "",
-		weight: "",
-		avatar: "",
-		age: "",
+		day: "",
+		date: "",
+		time: "",
 	};
-
 	const [user, setUser] = useState(initialState);
-	const [imgUrl, setImgUrl] = useState(
-		"https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=250"
-	);
+	const [drSlots, setDrSlots] = useState();
+	console.log(drSlots);
 	const handleInputs = (e) => {
 		setUser({
 			...user,
@@ -28,16 +26,14 @@ function Overview() {
 	};
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const { weight, blood, height, age } = user;
+		const { date, time, day } = user;
 		try {
-			const res = await api.post(
-				`api/profile`,
+			const res = await api.put(
+				`api/doctor/slots`,
 				{
-					weight: weight,
-					blood: blood,
-					height: height,
-					avatar: imgUrl,
-					age: age,
+					day: day,
+					time: time,
+					date: date,
 				},
 				{
 					headers: {
@@ -46,6 +42,7 @@ function Overview() {
 				}
 			);
 			if (res.status == 200) {
+				// window.location = "/profile";
 				// alert("Successfully updated the profile");
 				// toast("Your Profile has been updated", {
 				//   position: "top-right",
@@ -61,7 +58,53 @@ function Overview() {
 			alert(JSON.stringify(error?.response?.data));
 		}
 	};
-
+	useEffect(async () => {
+		if (JSON.parse(window.localStorage.getItem("type")) == "doctor") {
+			try {
+				const res = await api.get(
+					`api/doctor/id/${JSON.parse(localStorage.getItem("userData"))._id}`,
+					{
+						headers: {
+							"x-auth-token": JSON.parse(window.localStorage.getItem("token")),
+						},
+					}
+				);
+				if (res.status === 200) {
+					setDrSlots(res.data.slots);
+				}
+			} catch (error) {}
+		}
+	}, [drSlots]);
+	const deleteSlot = async (slot_id) => {
+		try {
+			const res = await api.delete(
+				`api/doctor/slots/${slot_id}/${
+					JSON.parse(localStorage.getItem("userData"))._id
+				}`,
+				{
+					headers: {
+						"x-auth-token": JSON.parse(window.localStorage.getItem("token")),
+					},
+				}
+			);
+			if (res.status == 200) {
+				debugger;
+				// window.location = "/profile";
+				// alert("Successfully updated the profile");
+				// toast("Your Profile has been updated", {
+				//   position: "top-right",
+				//   autoClose: 5000,
+				//   hideProgressBar: false,
+				//   closeOnClick: true,
+				//   pauseOnHover: true,
+				//   draggable: true,
+				//   progress: undefined,
+				// });
+			}
+		} catch (error) {
+			alert(JSON.stringify(error?.response?.data));
+		}
+	};
 	return (
 		<DashboardLayout>
 			<Header />
@@ -71,29 +114,8 @@ function Overview() {
 						<div className="col-2">
 							<div className="row mb-3">
 								<span style={{ fontSize: "20px", fontWeight: "bold" }}>
-									Create Profile
+									Add Slot
 								</span>
-							</div>
-							<div className="row">
-								<div className="col-12">
-									<img
-										src={imgUrl}
-										alt=""
-										style={{
-											objectFit: "cover",
-											width: "100%",
-											height: "auto",
-										}}
-									></img>
-								</div>
-							</div>
-							<div className="row mt-3">
-								<div>
-									<FileBase64
-										multiple={false}
-										onDone={({ base64 }) => setImgUrl(base64)}
-									/>
-								</div>
 							</div>
 						</div>
 						<div className="col-5">
@@ -101,9 +123,6 @@ function Overview() {
 								<div className="col-12">
 									<span
 										style={{
-											// fontSize: "20px",
-											// fontWeight: "bold",
-											// display: "none",
 											color: "transparent",
 										}}
 									>
@@ -115,18 +134,15 @@ function Overview() {
 								<div className="col-12">
 									<div className="form-group col-md-12">
 										<label htmlFor="weight" className="m-2">
-											Weight
+											Date
 										</label>
 										<input
-											type="number"
-											min="60"
-											max="120"
+											type="date"
 											className="form-control"
-											id="weight"
-											placeholder="Enter Weight (kg)"
+											id="date"
 											style={{ borderRadius: "8px", fontSize: "15px" }}
-											name="weight"
-											value={user.weight}
+											name="date"
+											value={user.date}
 											onChange={handleInputs}
 										/>
 									</div>
@@ -134,22 +150,30 @@ function Overview() {
 							</div>
 							<div className="row">
 								<div className="col-12">
-									<div className="form-group col-md-12">
+									<div className="form-group col-md-12 mt-4">
 										<label htmlFor="age" className="m-2">
-											Age
+											Day
 										</label>
-										<input
-											type="number"
-											min="1"
-											max="10"
-											className="form-control"
-											id="age"
-											placeholder="Enter age"
-											style={{ borderRadius: "8px", fontSize: "15px" }}
-											name="age"
-											value={user.age}
+										<br />
+										<select
+											value={user.day}
 											onChange={handleInputs}
-										/>
+											name="day"
+											id="day"
+											style={{
+												width: "100%",
+												borderRadius: "8px",
+												height: "35px",
+												borderColor: "#D3D3D3",
+											}}
+										>
+											<option value="Monday">Monday</option>
+											<option value="Tuesday">Tuesday</option>
+											<option value="Wednesday">Wednesday</option>
+											<option value="Thursday">Thursday</option>
+											<option value="Friday">Friday</option>
+											<option value="Saturday">Saturday</option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -159,9 +183,6 @@ function Overview() {
 								<div className="col-12">
 									<span
 										style={{
-											// fontSize: "20px",
-											// fontWeight: "bold",
-											// display: "none",
 											color: "transparent",
 										}}
 									>
@@ -173,37 +194,16 @@ function Overview() {
 								<div className="col-12">
 									<div className="form-group col-md-12">
 										<label htmlFor="height" className="m-2">
-											Height{" "}
-										</label>
-										<input
-											type="number"
-											min="150"
-											max="250"
-											className="form-control"
-											id="height"
-											placeholder="Enter height (cm)"
-											style={{ borderRadius: "8px", fontSize: "15px" }}
-											name="height"
-											value={user.height}
-											onChange={handleInputs}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="row">
-								<div className="col-12">
-									<div className="form-group col-md-12">
-										<label htmlFor="blood" className="m-2">
-											Blood
+											Time
 										</label>
 										<input
 											type="text"
 											className="form-control"
-											id="blood"
-											placeholder="Enter Blood"
+											id="time"
+											placeholder="Enter time as 10:30-11:00 OR 10-11"
 											style={{ borderRadius: "8px", fontSize: "15px" }}
-											name="blood"
-											value={user.blood}
+											name="time"
+											value={user.time}
 											onChange={handleInputs}
 										/>
 									</div>
@@ -244,10 +244,54 @@ function Overview() {
 						</div>
 						<div className="col-5"></div>
 					</div>
+					<div class="mt-5">
+						<div class="table-responsive">
+							<h3>SLOTS</h3>
+
+							<table class="table ">
+								<thead>
+									<tr>
+										<th colspan="2">#</th>
+										<th>Meeting Day</th>
+										<th>Meeting Time</th>
+										<th>Meeting Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									{drSlots?.map((meeting, index) => {
+										return (
+											<tr>
+												<td colspan="2">
+													<h6>{index + 1}</h6>
+												</td>
+
+												<td>
+													{meeting.day}
+													<br />
+												</td>
+												<td class="font-weight-bold">{meeting.time}</td>
+												<td>{moment(meeting?.date).format("DD/MM/YYYY")}</td>
+												<td class="font-weight-bold">
+													<SuiButton
+														variant="gradient"
+														color="dark"
+														size="medium"
+														onClick={() => {
+															deleteSlot(meeting._id);
+														}}
+													>
+														Delete Slot
+													</SuiButton>
+												</td>
+											</tr>
+										);
+									})}
+								</tbody>
+							</table>
+						</div>
+					</div>
 				</div>
 			</Card>
-
-			{/* <Footer /> */}
 		</DashboardLayout>
 	);
 }

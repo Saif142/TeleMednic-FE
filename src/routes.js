@@ -8,10 +8,10 @@ import Profile from "layouts/profile";
 import DoctorProfile from "layouts/DoctorProfile";
 import UserProfile from "layouts/userprofile";
 import CreateProfile from "layouts/createProfile";
-
 import AddProperty from "layouts/addproperty";
 import AllDoctors from "layouts/allDoctors";
 import AllHospitals from "./layouts/allHospitals";
+import AddSlots from 'layouts/addSlots'
 
 import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
@@ -29,54 +29,8 @@ import Cube from "examples/Icons/Cube";
 // For Site Routes................
 import Home from "layouts/site/home";
 import Home2 from "layouts/site/components/Socials";
-
 const routes = [
-	// {
-	//   type: 'collapse',
-	//   name: 'Dashboard',
-	//   key: 'dashboard',
-	//   route: '/dashboard',
-	//   icon: <Shop size='12px' />,
-	//   component: Dashboard,
-	//   noCollapse: true,
-	// },
-	// {
-	//   type: 'collapse',
-	//   name: 'Tables',
-	//   key: 'tables',
-	//   route: '/tables',
-	//   icon: <Office size='12px' />,
-	//   component: Tables,
-	//   noCollapse: true,
-	// },
-	// {
-	//   type: 'collapse',
-	//   name: 'Billing',
-	//   key: 'billing',
-	//   route: '/billing',
-	//   icon: <CreditCard size='12px' />,
-	//   component: Billing,
-	//   noCollapse: true,
-	// },
-	// {
-	//   type: "collapse",
-	//   name: "Virtual Reality",
-	//   key: "virtual-reality",
-	//   route: "/virtual-reality",
-	//   icon: <Cube size="12px" />,
-	//   component: VirtualReality,
-	//   noCollapse: true,
-	// },
-	// {
-	//   type: "collapse",
-	//   name: "RTL",
-	//   key: "rtl",
-	//   route: "/rtl",
-	//   icon: <Settings size="12px" />,
-	//   component: RTL,
-	//   noCollapse: true,
-	// },
-	// { type: 'title', title: 'Account Pages', key: 'account-pages' },
+	// ...............................................................Patient
 	{
 		type: "collapse",
 		name: "Profile",
@@ -96,7 +50,10 @@ const routes = [
 		noCollapse: true,
 	},
 	{
-		type: "collapse",
+		type:
+			JSON.parse(window.localStorage.getItem("type")) === "patient"
+				? "collapse"
+				: "",
 		name: "All Hospitals",
 		key: "hospitals",
 		route: "/allhospitals",
@@ -105,7 +62,10 @@ const routes = [
 		noCollapse: true,
 	},
 	{
-		type: "collapse",
+		type:
+			JSON.parse(window.localStorage.getItem("type")) === "patient"
+				? "collapse"
+				: "",
 		name: "All Doctors",
 		key: "AllDoctors",
 		route: "/alldoctors",
@@ -168,14 +128,122 @@ const routes = [
 		noCollapse: true,
 	},
 	{
-		type: "collapse",
-		name: "Appointment History",
+		type:
+			JSON.parse(window.localStorage.getItem("type")) === "patient"
+				? ""
+				: "collapse",
+		name:
+			JSON.parse(window.localStorage.getItem("type")) == "patient"
+				? "Appointment History"
+				: "Appointment",
 		key: "Reports",
 		route: "/reports",
 		icon: <CustomerSupport size="12px" />,
 		component: AppointmentHistory,
 		noCollapse: true,
 	},
+	{
+		type:
+			JSON.parse(window.localStorage.getItem("type")) == "doctor"
+				? "collapse"
+				: "",
+		name: "Add Slots",
+		key: "addSlots",
+		route: "/addSlots",
+		icon: <CustomerSupport size="12px" />,
+		component: AddSlots,
+		noCollapse: true,
+	},
+	// .......................................................................................Doctor
+	// {
+	// 	// type: "collapse",
+	// 	type:
+	// 		JSON.parse(window.localStorage.getItem("type")) == "doctor"
+	// 			? "collapse"
+	// 			: "",
+	// 	name: "Dr Profile",
+	// 	key: "Dr profile",
+	// 	route: "/dr_profile",
+	// 	icon: <CustomerSupport size="12px" />,
+	// 	component:Profile_Dr ,
+	// 	noCollapse: true,
+	// },
+	// {
+	// 	// type: "collapse",
+	// 	type: localStorage.getItem("type") == "doctor" ? "" : "collapse",
+
+	// 	name: "Profile",
+	// 	key: "profile",
+	// 	route: "/profile",
+	// 	icon: <CustomerSupport size="12px" />,
+	// 	component: Profile,
+	// 	noCollapse: true,
+	// },
+	// {
+	// 	// type: "collapse",
+	// 	name: "hsptls all drs",
+	// 	key: "hsptls all drs",
+	// 	route: "/alldrs",
+	// 	icon: <CustomerSupport size="12px" />,
+	// 	component: Alldrs,
+	// 	noCollapse: true,
+	// },
+	// {
+	// 	type: "collapse",
+	// 	name: "All Hospitals",
+	// 	key: "hospitals",
+	// 	route: "/allhospitals",
+	// 	icon: <CustomerSupport size="12px" />,
+	// 	component: AllHospitals,
+	// 	noCollapse: true,
+	// },
+
+	// {
+	//   type: 'collapse',
+	//   name: 'Dashboard',
+	//   key: 'dashboard',
+	//   route: '/dashboard',
+	//   icon: <Shop size='12px' />,
+	//   component: Dashboard,
+	//   noCollapse: true,
+	// },
+	// {
+	//   type: 'collapse',
+	//   name: 'Tables',
+	//   key: 'tables',
+	//   route: '/tables',
+	//   icon: <Office size='12px' />,
+	//   component: Tables,
+	//   noCollapse: true,
+	// },
+	// {
+	//   type: 'collapse',
+	//   name: 'Billing',
+	//   key: 'billing',
+	//   route: '/billing',
+	//   icon: <CreditCard size='12px' />,
+	//   component: Billing,
+	//   noCollapse: true,
+	// },
+	// {
+	//   type: "collapse",
+	//   name: "Virtual Reality",
+	//   key: "virtual-reality",
+	//   route: "/virtual-reality",
+	//   icon: <Cube size="12px" />,
+	//   component: VirtualReality,
+	//   noCollapse: true,
+	// },
+	// {
+	//   type: "collapse",
+	//   name: "RTL",
+	//   key: "rtl",
+	//   route: "/rtl",
+	//   icon: <Settings size="12px" />,
+	//   component: RTL,
+	//   noCollapse: true,
+	// },
+	// { type: 'title', title: 'Account Pages', key: 'account-pages' },
 	// {
 	//   type: 'collapse',
 	//   name: 'Sign In',
