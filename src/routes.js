@@ -92,7 +92,7 @@ const routes = [
 		noCollapse: true,
 	},
 	{
-		type: localStorage.getItem("isCreateProfile") ? "" : "collapse",
+		type: localStorage.getItem("isCreateProfile")==undefined ? "collapse" : "",
 		name: "Create Profile",
 		key: "CreateProfile",
 		route: "/createprofile",
