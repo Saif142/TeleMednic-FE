@@ -56,6 +56,7 @@ import { useLocation } from "react-router-dom";
 import userImage from "assets/images/user.png";
 import { Button } from "@mui/material";
 import api from "../../services/api";
+import avatars from "assets/images/curved-images/avatar.png";
 
 function Overview(props) {
 	const [userData, setUserData] = useState({});
@@ -380,16 +381,30 @@ function Overview(props) {
 														</td>
 														<td>
 															<div class="d-flex align-items-center">
-																<img
-																	class="rounded-circle"
-																	src={
-																		isDr
-																			? meeting.patientAvatar
-																			: meeting.doctorAvatar
-																	}
-																	width="50"
-																	height="50"
-																/>
+																{meeting.patientAvatar}
+																{isDr ? (
+																	<img
+																		class="rounded-circle"
+																		src={
+																			meeting?.patientAvatar
+																				? meeting.patientAvatar
+																				: avatars
+																		}
+																		width="50"
+																		height="50"
+																	/>
+																) : (
+																	<img
+																		class="rounded-circle"
+																		src={
+																			meeting.patientAvatar
+																				? meeting.patientAvatar
+																				: avatars
+																		}
+																		width="50"
+																		height="50"
+																	/>
+																)}
 																<span class="ms-1">
 																	{isDr ? meeting.patient : meeting.doctor}
 																</span>

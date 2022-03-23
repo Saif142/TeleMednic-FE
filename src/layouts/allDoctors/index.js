@@ -48,7 +48,8 @@ import homeDecor3 from "assets/images/home-decor-3.jpg";
 import team1 from "assets/images/team-1.jpg";
 import team2 from "assets/images/team-2.jpg";
 import team3 from "assets/images/team-3.jpg";
-import user from "assets/images/user.png";
+import users from "assets/images/user.png";
+import user from "assets/images/curved-images/avatar.png";
 
 import api from "../../services/api";
 import { useState, useEffect } from "react";

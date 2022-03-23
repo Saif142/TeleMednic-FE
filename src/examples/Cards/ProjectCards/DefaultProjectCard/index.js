@@ -76,6 +76,11 @@ function DefaultProjectCard({
           title={title}
           sx={{
             maxWidth: "100%",
+            minWidth:"100%",
+            height:"100%",
+            width:"100%",
+            height:"320px",
+            // maxHeight:"auto",
             margin: 0,
             boxShadow: ({ boxShadows: { md } }) => md,
             objectFit: "cover",
