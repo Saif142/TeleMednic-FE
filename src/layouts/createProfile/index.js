@@ -7,6 +7,7 @@ import api from '../../services/api'
 import './style.css'
 import FileBase64 from 'react-file-base64'
 import { WindowSharp } from '@mui/icons-material'
+import common_avatar from 'assets/images/common_avatar.jpeg'
 
 function Overview() {
   const initialState = {
@@ -18,9 +19,7 @@ function Overview() {
   }
 
   const [user, setUser] = useState(initialState)
-  const [imgUrl, setImgUrl] = useState(
-    'https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50?s=250'
-  )
+  const [imgUrl, setImgUrl] = useState(common_avatar)
   const handleInputs = (e) => {
     setUser({
       ...user,
@@ -47,7 +46,7 @@ function Overview() {
         }
       )
       if (res.status == 200) {
-        // window.location = '/profile'
+        window.location = '/profile'
         // alert("Successfully updated the profile");
         // toast("Your Profile has been updated", {
         //   position: "top-right",

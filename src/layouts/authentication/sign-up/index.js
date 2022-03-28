@@ -78,7 +78,6 @@ function SignUp() {
     )
 
     try {
-      debugger
       const res = await api.post('/api/patient', {
         email: email,
         password: password,

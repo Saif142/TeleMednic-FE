@@ -5,6 +5,7 @@ import Header from "layouts/profile/components/Header";
 import SuiButton from "components/SuiButton";
 import api from "../../services/api";
 import "./style.css";
+import { ToastContainer, toast } from "react-toastify";
 import FileBase64 from "react-file-base64";
 import { borderColor } from "@mui/material/node_modules/@mui/system";
 import moment from "moment";
@@ -42,6 +43,15 @@ function Overview() {
 				}
 			);
 			if (res.status == 200) {
+				toast("Your Slot has been Added", {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
 				// window.location = "/profile";
 				// alert("Successfully updated the profile");
 				// toast("Your Profile has been updated", {
@@ -69,8 +79,9 @@ function Overview() {
 						},
 					}
 				);
-				if (res.status === 200) {
+				if (res) {
 					setDrSlots(res.data.slots);
+					
 				}
 			} catch (error) {}
 		}
@@ -87,8 +98,16 @@ function Overview() {
 					},
 				}
 			);
-			if (res.status == 200) {
-				debugger;
+			if (res) {
+				toast("Your Slot has been Deleted", {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
 				// window.location = "/profile";
 				// alert("Successfully updated the profile");
 				// toast("Your Profile has been updated", {
@@ -292,6 +311,7 @@ function Overview() {
 					</div>
 				</div>
 			</Card>
+			<ToastContainer />
 		</DashboardLayout>
 	);
 }

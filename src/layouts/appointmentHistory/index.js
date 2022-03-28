@@ -5,6 +5,7 @@ import moment from "moment";
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import Header from "layouts/profile/components/Header";
 import api from "../../services/api";
+import { ToastContainer, toast } from "react-toastify";
 
 function Overview(props) {
 	const [patientMeeting, setPatientMeeting] = useState();
@@ -25,18 +26,18 @@ function Overview(props) {
 					},
 				}
 			);
-			if (res.status == 200) {
+			if (res) {
 				// window.location = "/profile";
-				// alert("Successfully updated the profile");
-				// toast("Your Profile has been updated", {
-				//   position: "top-right",
-				//   autoClose: 5000,
-				//   hideProgressBar: false,
-				//   closeOnClick: true,
-				//   pauseOnHover: true,
-				//   draggable: true,
-				//   progress: undefined,
-				// });
+
+				toast("Appointment is Done", {
+					position: "top-right",
+					autoClose: 5000,
+					hideProgressBar: false,
+					closeOnClick: true,
+					pauseOnHover: true,
+					draggable: true,
+					progress: undefined,
+				});
 			}
 		} catch (error) {
 			alert(JSON.stringify(error?.response?.data));
@@ -181,6 +182,7 @@ function Overview(props) {
 					</div>
 				</div>
 			</Card>
+			<ToastContainer />
 		</DashboardLayout>
 	);
 }
