@@ -93,7 +93,11 @@ const routes = [
   },
   {
     type:
-      !localStorage.getItem('isCreateProfile') == undefined ? 'collapse' : '',
+      JSON.parse(window.localStorage.getItem('type')) === 'patient'
+        ? localStorage.getItem('isCreateProfile') == undefined
+          ? 'collapse'
+          : ''
+        : '',
     name: 'Create Profile',
     key: 'CreateProfile',
     route: '/createprofile',
@@ -129,7 +133,7 @@ const routes = [
     noCollapse: true,
   },
   {
-    type: "collapse",
+    type: 'collapse',
     name: 'Appointments',
     key: 'Reports',
     route: '/reports',

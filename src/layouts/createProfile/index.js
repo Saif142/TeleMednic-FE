@@ -142,7 +142,7 @@ function Overview() {
                     <input
                       type='number'
                       min='1'
-                      max='10'
+                      max='100'
                       className='form-control'
                       id='age'
                       placeholder='Enter age'
@@ -197,7 +197,29 @@ function Overview() {
                     <label htmlFor='blood' className='m-2'>
                       Blood
                     </label>
-                    <input
+                    <select
+                      value={user.blood}
+                      onChange={handleInputs}
+                      name='blood'
+                      id='blood'
+                      style={{
+                        width: '100%',
+                        borderRadius: '8px',
+                        height: '35px',
+                        borderColor: '#D3D3D3',
+                      }}
+                    >
+                      <option value=''>Select Blood</option>
+                      <option value='A+'>A+</option>
+                      <option value='A-'>A-</option>
+                      <option value='B+'>B+</option>
+                      <option value='B-'>B-</option>
+                      <option value='AB+'>AB+</option>
+                      <option value='AB-'>AB-</option>
+                      <option value='O+'>O+</option>
+                      <option value='O-'>O-</option>
+                    </select>
+                    {/* <input
                       type='text'
                       className='form-control'
                       id='blood'
@@ -206,7 +228,7 @@ function Overview() {
                       name='blood'
                       value={user.blood}
                       onChange={handleInputs}
-                    />
+                    /> */}
                   </div>
                 </div>
               </div>
